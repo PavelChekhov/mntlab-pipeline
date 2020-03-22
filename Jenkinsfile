@@ -38,7 +38,7 @@ stage('Packaging and Publishing results') {
 	archiveArtifacts artifacts: 'pipeline-pchekhov-${BUILD_NUMBER}.tar.gz'
 //	nexusArtifactUploader artifacts: 
 //[[artifactId: "${BUILD_NUMBER}",classifier: 'tar.gz',file: 'pipeline-pchekhov-"${BUILD_NUMBER}".tar.gz',type: "${BUILD_NUMBER}"]], credentialsId: 'admin', groupId: 'groupid', nexusUrl: '127.0.0.1:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: 'release'
-	sh "curl -v --user 'admin:admin' --upload-file ./pipeline-pchekhov-${BUILD_NUMBER}.tar.gz http://127.0.0.1:8081/maven-releases/pipeline-pchekhov-${BUILD_NUMBER}.tar.gz"
+	sh "curl -v --user 'admin:admin' --upload-file ./pipeline-pchekhov-${BUILD_NUMBER}.tar.gz http://127.0.0.1:8081/repository/maven-releases/pipeline-pchekhov-${BUILD_NUMBER}.tar.gz"
 	}
 stage('Asking for manual approval') {
 timeout(time: 120, unit: 'SECONDS') {
