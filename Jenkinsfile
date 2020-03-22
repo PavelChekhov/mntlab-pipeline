@@ -3,23 +3,23 @@ node (env.MASTER) {
 		git url:'https://github.com/PavelChekhov/mntlab-pipeline.git', branch: 'pchekhov'
 	}
     stage('Gradle Build') {
-        sh "/opt/gradle/gradle-6.2.2/bin/gradle build"
+        sh "/opt/gradle/gradle-4.3/bin/gradle build"
     }
     stage ('Testing') {
     	parallel (
     		cucumber: {
     			stage ('cucumber') {
-    				sh "/opt/gradle/gradle-6.2.2/bin/gradle cucumber"
+    				sh "/opt/gradle/gradle-4.3/bin/gradle cucumber"
     			}
     		},
     		jacoco: {
     			stage ('jacoco') {
-    				sh "/opt/gradle/gradle-6.2.2/bin/gradle jacocoTestReport"
+    				sh "/opt/gradle/gradle-4.3/bin/gradle jacocoTestReport"
     			}
     		},
     		unit: {
     			stage ('unit test') {
-    				sh "/opt/gradle/gradle-6.2.2/bin/gradle test"
+    				sh "/opt/gradle/gradle-4.3/bin/gradle test"
     			}
     		}
     	)
