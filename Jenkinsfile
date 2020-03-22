@@ -5,24 +5,13 @@ node (env.MASTER) {
     stage('Gradle Build') {
         sh "/opt/gradle/gradle-4.3/bin/gradle build"
     }
-    stage ('Testing') {
-    	parallel (
-    		cucumber: {
-    			stage ('cucumber') {
-    				sh "/opt/gradle/gradle-4.3/bin/gradle cucumber"
-    			}
-    		},
-    		jacoco: {
-    			stage ('jacoco') {
-    				sh "/opt/gradle/gradle-4.3/bin/gradle jacocoTestReport"
-    			}
-    		},
-    		unit: {
-    			stage ('unit test') {
-    				sh "/opt/gradle/gradle-4.3/bin/gradle test"
-    			}
-    		}
-    	)
+ stage('Testing code'){
+     echo "Testing stage begins."
+     parallel (
+     Unit_tests: {echo "Unit Test  stage begins."; sh '/opt/gradle/gradle-4.3/bin/gradle test' },
+     Jacoco_tests: {echo "Jacoco Test stage begins."; sh '/opt/gradle/gradle-4.3/bin/gradle jacocoTestReport' },
+     Cucumber_tests: {echo "Cucumber Test stage begins."; sh '/opt/gradle/gradle-4.3/bin/gradle cucumber' }
+        )
     }
     stage ('Triggering job and fetching artefact after finishing') {
     	build job: 'MNTLAB-pchekhov-child1-build-job', 
